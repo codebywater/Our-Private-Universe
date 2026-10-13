@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Our Private Universe — open-source template</title>
+<meta name="description" content="A private, cinematic memory archive for two people: memories, timeline and time-locked letters. Next.js + Supabase.">
+<style>
+@font-face{font-family:"Manrope";font-weight:200 800;font-display:swap;src:url("fonts/manrope-latin-wght-normal.woff2") format("woff2")}
+@font-face{font-family:"Cormorant Garamond";font-weight:300;font-display:swap;src:url("fonts/cormorant-garamond-latin-300-normal.woff2") format("woff2")}
+@font-face{font-family:"Cormorant Garamond";font-style:italic;font-weight:400;font-display:swap;src:url("fonts/cormorant-garamond-latin-400-italic.woff2") format("woff2")}
+:root{--ink:#090911;--ink2:#12121d;--accent:#c6a0ff;--text:#eae4f1;--muted:#aaa2b8;--line:rgb(255 255 255/.1)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(60rem 40rem at 50% -10%,#241a3b 0,transparent 70%),var(--ink);color:var(--text);font:400 1rem/1.65 "Manrope",system-ui,sans-serif}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+.wrap{max-width:62rem;margin:0 auto;padding:0 1.25rem}
+header{padding:1.25rem 0;display:flex;justify-content:space-between;align-items:center;font-size:.9rem;color:var(--muted)}
+header a{text-decoration:none;padding:.5rem .25rem}
+header a:hover{color:var(--text)}
+.hero{padding:clamp(4rem,12vw,9rem) 0 4rem;text-align:center}
+.eyebrow{font-size:.75rem;letter-spacing:.35em;text-transform:uppercase;color:var(--accent);margin:0 0 1.5rem}
+h1{font:300 clamp(2.8rem,9vw,6rem)/1.02 "Cormorant Garamond",Georgia,serif;margin:0;letter-spacing:-.01em}
+h1 em{color:var(--accent);font-style:italic;font-weight:400}
+.lead{max-width:38rem;margin:1.75rem auto 0;color:var(--muted);font-size:1.1rem}
+.cta{display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap;margin-top:2.5rem}
+.btn{display:inline-flex;align-items:center;min-height:2.75rem;padding:0 1.5rem;border-radius:999px;text-decoration:none;font-weight:500;border:1px solid var(--line)}
+.btn.primary{background:var(--accent);color:var(--ink);border-color:var(--accent)}
+.btn:not(.primary):hover{border-color:var(--accent)}
+section{padding:3.5rem 0;border-top:1px solid var(--line)}
+h2{font:300 clamp(2rem,5vw,3rem)/1.1 "Cormorant Garamond",Georgia,serif;margin:0 0 2rem}
+.grid{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr))}
+.card{background:var(--ink2);border:1px solid var(--line);border-radius:1.25rem;padding:1.5rem}
+.card h3{margin:0 0 .5rem;font-size:1rem;font-weight:600}
+.card p{margin:0;color:var(--muted);font-size:.95rem}
+ol{padding-left:1.25rem;color:var(--muted)} ol li{margin:.6rem 0} ol strong{color:var(--text);font-weight:500}
+code,pre{font-family:ui-monospace,"JetBrains Mono",Menlo,monospace;font-size:.88rem}
+code{background:rgb(255 255 255/.07);padding:.1rem .35rem;border-radius:.35rem;color:var(--text)}
+pre{background:var(--ink2);border:1px solid var(--line);border-radius:1rem;padding:1rem 1.25rem;overflow-x:auto;color:var(--text)}
+footer{padding:2.5rem 0 3rem;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span>Our Private Universe</span>
+    <a href="https://github.com/gregreshetnyak52-crypto/Our-Private-Universe">GitHub →</a>
+  </header>
+
+  <main id="main">
+    <div class="hero">
+      <p class="eyebrow">Open-source template</p>
+      <h1>A private universe<br>for <em>two</em></h1>
+      <p class="lead">A cinematic memory archive for exactly two people: photos, a timeline, and letters that stay sealed until a chosen day. Self-hosted on your own Supabase and Vercel.</p>
+      <div class="cta">
+        <a class="btn primary" href="https://github.com/gregreshetnyak52-crypto/Our-Private-Universe">View on GitHub</a>
+        <a class="btn" href="#start">Quick start</a>
+      </div>
+    </div>
+
+    <section aria-labelledby="f">
+      <h2 id="f">What's inside</h2>
+      <div class="grid">
+        <div class="card"><h3>Live counter</h3><p>Time together, in calendar years, months and days, computed in your timezone.</p></div>
+        <div class="card"><h3>Memories</h3><p>Multi-photo upload, private storage, signed URLs, year and category filters.</p></div>
+        <div class="card"><h3>Timeline</h3><p>Events in order of time, each with an optional photo.</p></div>
+        <div class="card"><h3>Time-locked letters</h3><p>The lock is enforced by the database (RLS and functions), not by the UI.</p></div>
+        <div class="card"><h3>Two-user allowlist</h3><p>No public sign-up. A trigger caps the allowlist at two people.</p></div>
+        <div class="card"><h3>Safe by default</h3><p>RLS on every table, no <code>service_role</code> in the app, safe redirects.</p></div>
+      </div>
+    </section>
+
+    <section id="start" aria-labelledby="q">
+      <h2 id="q">Quick start</h2>
+      <ol>
+        <li><strong>Create a Supabase project</strong> and run <code>supabase/migrations/*.sql</code> in order.</li>
+        <li><strong>Disable public sign-up</strong> (Auth → Providers → Email) and create two users.</li>
+        <li><strong>Allowlist them</strong> with <code>supabase/add_allowed_users.sql</code>.</li>
+        <li><strong>Personalize</strong> names and dates in <code>lib/site-config.ts</code>.</li>
+        <li><strong>Run</strong> locally, then deploy to Vercel with the same env vars.</li>
+      </ol>
+<pre><code>git clone https://github.com/gregreshetnyak52-crypto/Our-Private-Universe
+cd Our-Private-Universe
+cp .env.example .env.local
+npm install &amp;&amp; npm run dev</code></pre>
+    </section>
+
+    <section aria-labelledby="n">
+      <h2 id="n">Good to know</h2>
+      <p style="color:var(--muted);max-width:42rem">This page is only a project description. The app itself needs a server and a database, so it cannot run on GitHub Pages — deploy it to Vercel or any Node host. The interface language is Russian; texts live in the components and <code>lib/site-config.ts</code>.</p>
+    </section>
+  </main>
+
+  <footer>
+    <span>MIT License</span>
+    <span>Next.js · Supabase · Tailwind</span>
+  </footer>
+</div>
+</body>
+</html>
