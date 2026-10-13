@@ -4,6 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Our Private Universe — демо шаблона</title>
+<meta name="theme-color" content="#080911">
+<meta name="color-scheme" content="dark">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Our Private Universe — демо шаблона">
+<meta property="og:description" content="Демо open-source шаблона: приватный архив воспоминаний, хронология и письма с отложенным открытием для двоих.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='16' fill='%23080911'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23C6A8F7'/%3E%3C/svg%3E">
+<script>/* preload критичных шрифтов; на file:// CORS-запрос шрифта блокируется, поэтому только по http(s) */
+if(/^https?:/.test(location.protocol))["manrope-cyrillic-wght-normal","cormorant-garamond-cyrillic-300-normal"].forEach(function(n){var l=document.createElement("link");l.rel="preload";l.as="font";l.type="font/woff2";l.crossOrigin="anonymous";l.href="fonts/"+n+".woff2";document.head.appendChild(l)});
+</script>
 <meta name="description" content="Демо open-source шаблона: приватный архив воспоминаний, хронология и письма с отложенным открытием для двоих.">
 <style>
 @font-face{font-family:"Manrope";font-weight:200 800;font-display:swap;src:url("fonts/manrope-cyrillic-wght-normal.woff2") format("woff2");unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
@@ -23,13 +32,18 @@
   color-scheme:dark;
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;scrollbar-gutter:stable;scroll-padding-top:84px}
 body{background:var(--ink);color:var(--text);font:400 16px/1.6 var(--sans);padding-inline:clamp(16px,4vw,48px);overflow-x:hidden;min-height:100%}
 body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:50;opacity:.07;
   background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
 a{color:inherit}
 button{font:inherit;color:inherit;cursor:pointer}
 :focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+[tabindex="-1"]:focus{outline:none}
+.sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0}
+.skip{position:fixed;left:16px;top:-80px;z-index:100;background:var(--accent);color:var(--ink);padding:12px 20px;border-radius:99px;font-weight:600;text-decoration:none}
+.skip:focus{top:max(12px,env(safe-area-inset-top,0px))}
+nav.tabs button:focus-visible{outline-offset:-3px}
 .wrap{max-width:1180px;margin-inline:auto}
 header.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:14px;background:linear-gradient(var(--ink) 60%,transparent)}
 .mono{flex:none;display:grid;place-items:center;width:40px;height:40px;border:1px solid var(--line2);border-radius:50%;font:400 15px var(--display);letter-spacing:.05em;color:var(--accent)}
@@ -54,10 +68,10 @@ h1,h2,h3{font-family:var(--display);font-weight:300;line-height:.95;margin:0;tex
 .cta:hover{background:#fff;box-shadow:0 0 40px -6px rgba(198,168,247,.7)}
 .sec{padding-block:clamp(40px,6vw,72px) 96px}
 .sec>header{margin-bottom:48px;max-width:640px}
-.sec h2{font-size:clamp(44px,8vw,92px)}
+.sec h1,.sec h2{font-size:clamp(44px,8vw,92px)}
 .sec header p{color:var(--muted);margin:18px 0 0}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px}
-.chip{border:1px solid var(--line);background:none;border-radius:99px;padding:8px 16px;font-size:13px;color:var(--muted)}
+.chip{min-height:40px;border:1px solid var(--line);background:none;border-radius:99px;padding:8px 16px;font-size:13px;color:var(--muted)}
 .chip[aria-pressed=true]{border-color:var(--accent);background:rgba(198,168,247,.15);color:var(--text)}
 .grid{columns:1;column-gap:20px}
 @media(min-width:600px){.grid{columns:2}}@media(min-width:960px){.grid{columns:3}}
@@ -116,38 +130,190 @@ footer{border-top:1px solid var(--line);padding-block:32px;color:var(--muted);fo
 #lb .top{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:14px}
 #lb .stage{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;gap:12px}
 #lb .stage svg{max-height:100%;max-width:100%;border-radius:12px}
+#lb .nav[aria-disabled=true]{opacity:.35;cursor:default}
 #lb .nav{width:44px;height:44px;border-radius:50%;border:1px solid var(--line2);background:none;flex:none}
 #lb .info{text-align:center;padding-top:12px}
 #lb .info h3{font-size:34px}
 .x{width:44px;height:44px;border-radius:50%;border:0;background:none}
 .x:hover{background:rgba(255,255,255,.1)}
-@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+@media(prefers-reduced-motion:reduce){*,::before,::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
 [hidden]{display:none!important}
+/* ===== Visual polish layer ===== */
+:root{--ease:cubic-bezier(.22,1,.36,1);--glass:linear-gradient(160deg,rgba(32,30,56,.62),rgba(14,15,28,.62));--glow:rgba(198,168,247,.35)}
+html{background:var(--ink)}
+body{position:relative;isolation:isolate;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+/* cosmic backdrop: layered glows + starfield, fixed, no JS */
+body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:
+   radial-gradient(60vmax 42vmax at 88% -8%,rgba(150,104,235,.20),transparent 62%),
+   radial-gradient(50vmax 40vmax at -10% 105%,rgba(70,92,200,.16),transparent 60%),
+   radial-gradient(34vmax 26vmax at 50% 55%,rgba(198,168,247,.05),transparent 70%),
+   url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='420' height='420'><g fill='%23F6F2FF'><circle cx='24' cy='60' r='.8' opacity='.55'/><circle cx='96' cy='310' r='.6' opacity='.4'/><circle cx='140' cy='140' r='1' opacity='.65'/><circle cx='210' cy='30' r='.6' opacity='.45'/><circle cx='260' cy='230' r='.9' opacity='.5'/><circle cx='330' cy='96' r='.7' opacity='.55'/><circle cx='380' cy='360' r='.8' opacity='.45'/><circle cx='300' cy='390' r='.6' opacity='.4'/><circle cx='50' cy='200' r='.6' opacity='.35'/><circle cx='180' cy='380' r='1.1' opacity='.6'/><circle cx='400' cy='190' r='.6' opacity='.4'/></g><g fill='%23C6A8F7'><circle cx='72' cy='120' r='1.2' opacity='.55'/><circle cx='350' cy='260' r='1.3' opacity='.5'/><circle cx='230' cy='330' r='.9' opacity='.45'/></g></svg>") 0 0/420px 420px,
+   url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='610' height='610'><g fill='%23F6F2FF'><circle cx='110' cy='80' r='.9' opacity='.5'/><circle cx='500' cy='140' r='1.2' opacity='.55'/><circle cx='300' cy='300' r='.7' opacity='.4'/><circle cx='70' cy='450' r='1' opacity='.5'/><circle cx='560' cy='530' r='.8' opacity='.45'/><circle cx='390' cy='560' r='1.1' opacity='.55'/></g></svg>") 70px 40px/610px 610px;
+  animation:drift 90s linear infinite alternate}
+@keyframes drift{to{transform:translate3d(-14px,10px,0) scale(1.03)}}
+/* header glass */
+body{margin:0}
+header.bar{background:none}
+header.bar::before{content:"";position:absolute;z-index:-1;top:0;bottom:-18px;left:50%;width:100vw;translate:-50% 0;background:linear-gradient(rgba(8,9,17,.9) 60%,rgba(8,9,17,0));-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);-webkit-mask-image:linear-gradient(#000 70%,transparent);mask-image:linear-gradient(#000 70%,transparent)}
+.counter b,.stats b,.big{font-variant-numeric:lining-nums tabular-nums}
+.mono{background:radial-gradient(circle at 30% 25%,rgba(198,168,247,.22),rgba(198,168,247,.03));box-shadow:0 0 22px -6px var(--glow),inset 0 0 0 3px rgba(8,9,17,.6);transition:box-shadow .4s,border-color .4s}
+.mono:hover{border-color:var(--accent);box-shadow:0 0 28px -4px var(--glow)}
+nav.tabs{padding:4px;border:1px solid var(--line);border-radius:99px;background:rgba(17,19,33,.5)}
+nav.tabs button{transition:color .25s,background .35s var(--ease),box-shadow .35s}
+nav.tabs button:hover{background:rgba(198,168,247,.07)}
+nav.tabs button[aria-selected=true]{background:linear-gradient(180deg,rgba(198,168,247,.24),rgba(198,168,247,.1));box-shadow:inset 0 0 0 1px rgba(198,168,247,.28),0 0 18px -6px var(--glow)}
+.badge{background:rgba(198,168,247,.05)}
+/* type rhythm */
+.eyebrow{display:flex;align-items:center;gap:14px;letter-spacing:.34em}
+.eyebrow::before{content:"";width:28px;height:1px;background:linear-gradient(90deg,transparent,var(--accent))}
+.sec h2{letter-spacing:-.015em;line-height:1}
+.sec header p{line-height:1.75;max-width:56ch}
+.sec>header{margin-bottom:56px}
+/* tab transition */
+[data-panel]:not([hidden]){animation:enter .7s var(--ease) both}
+@keyframes enter{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+/* hero */
+.hero{isolation:isolate}
+.hero::before{inset:-14% 0 auto auto;width:78vmin;height:78vmin;background:radial-gradient(circle,rgba(198,168,247,.28),rgba(140,100,230,.10) 42%,transparent 68%);filter:blur(14px)}
+.hero::after{content:"";position:absolute;z-index:-1;left:0;bottom:-6%;width:56vmin;height:56vmin;background:radial-gradient(circle,rgba(86,110,220,.16),transparent 66%);filter:blur(18px)}
+.hero h1{background:linear-gradient(180deg,#fff 20%,#e5d6ff 70%,#c6a8f7);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;text-shadow:none;filter:drop-shadow(0 0 40px rgba(198,168,247,.32));padding-bottom:.06em}
+.hero h1 em{-webkit-text-fill-color:var(--accent);color:var(--accent)}
+.tag{margin-top:26px;opacity:.94}
+.date{display:inline-flex;align-items:center;gap:14px;margin-top:6px}
+.date::before{content:"";width:36px;height:1px;background:var(--line2)}
+.counter{gap:14px}
+.counter div{position:relative;border:1px solid var(--line);border-radius:18px;padding:16px 16px 14px;background:var(--glass);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);box-shadow:inset 0 1px 0 rgba(255,255,255,.05);transition:border-color .4s,transform .5s var(--ease)}
+.counter div::before{content:"";position:absolute;left:16px;right:16px;top:-1px;height:1px;background:linear-gradient(90deg,transparent,rgba(198,168,247,.7),transparent)}
+.counter div:hover{border-color:var(--line2);transform:translateY(-3px)}
+.counter b{margin-bottom:6px}
+.cta{position:relative;overflow:hidden;box-shadow:0 8px 30px -10px rgba(198,168,247,.6),inset 0 1px 0 rgba(255,255,255,.5);background:linear-gradient(180deg,#d8c2fb,var(--accent));transition:box-shadow .4s,transform .4s var(--ease),background .3s}
+.cta::after{content:"→";margin-left:12px;transition:transform .4s var(--ease)}
+.cta:hover{background:#fff;transform:translateY(-2px)}
+.cta:hover::after{transform:translateX(5px)}
+.cta:active{transform:none}
+/* chips */
+.chip{transition:border-color .3s,background .3s,color .3s,transform .3s var(--ease);padding:9px 18px}
+.chip:hover{border-color:var(--line2);color:var(--text);transform:translateY(-1px)}
+.chip[aria-pressed=true]{box-shadow:0 0 20px -8px var(--glow)}
+/* memory cards */
+.mem{border-radius:20px;box-shadow:0 18px 40px -24px rgba(0,0,0,.9);transition:border-color .4s,box-shadow .5s,transform .6s var(--ease)}
+.mem::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;border-radius:inherit;box-shadow:inset 0 0 0 1px rgba(255,255,255,.04),inset 0 -60px 60px -40px rgba(8,9,17,.6);background:radial-gradient(120% 70% at 20% 0%,rgba(255,255,255,.10),transparent 55%)}
+.mem:hover{border-color:var(--line2);transform:translateY(-4px);box-shadow:0 26px 50px -22px rgba(0,0,0,.95),0 0 44px -16px var(--glow)}
+.mem svg{transition:transform 1.1s var(--ease)}
+.mem .cap{z-index:2;padding-top:56px;transition:padding .4s var(--ease)}
+.mem:hover .cap{padding-bottom:18px}
+.cap strong{display:block;margin-top:2px}
+/* timeline */
+.tl::before{background:linear-gradient(transparent,var(--accent) 12%,var(--line2) 40%,var(--line2) 88%,transparent);opacity:.7}
+.tl li::before{background:radial-gradient(circle,var(--accent) 0 28%,var(--ink) 32%);box-shadow:0 0 0 4px rgba(198,168,247,.1),0 0 22px rgba(198,168,247,.7)}
+.ev{position:relative;background:var(--glass);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 20px 40px -28px #000;transition:border-color .4s,transform .5s var(--ease),box-shadow .5s}
+.ev:hover{border-color:var(--line2);transform:translateY(-3px);box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 24px 44px -26px #000,0 0 40px -18px var(--glow)}
+.ev time{display:inline-block;padding:4px 12px;border:1px solid var(--line);border-radius:99px;font-size:11px;background:rgba(198,168,247,.06)}
+.ev h3{line-height:1.05}
+.ev p{line-height:1.7}
+@media(min-width:820px){.tl li:nth-child(odd) .ev::after,.tl li:nth-child(even) .ev::after{content:"";position:absolute;top:19px;width:36px;height:1px;background:linear-gradient(90deg,var(--line2),transparent)}
+ .tl li:nth-child(odd) .ev::after{right:-37px;transform:scaleX(-1)}.tl li:nth-child(even) .ev::after{left:-37px;transform:scaleX(1)}
+ .tl li:nth-child(even) .ev::after{background:linear-gradient(270deg,var(--line2),transparent)}}
+/* letters */
+.card{background:var(--glass);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 24px 50px -30px #000;transition:border-color .4s,box-shadow .5s,transform .5s var(--ease)}
+.card:hover{border-color:var(--line2);transform:translateY(-3px)}
+.env{filter:drop-shadow(0 16px 24px rgba(0,0,0,.55));margin-top:34px}
+.env .body{background:linear-gradient(160deg,#1a1c33,#0c0d1a);box-shadow:inset 0 0 40px rgba(198,168,247,.06)}
+.env .sheet{background:linear-gradient(180deg,#f6f0ff,#e2d6f6);box-shadow:0 2px 10px rgba(0,0,0,.3)}
+.env .sheet{top:48%;height:50%}
+.env.open .sheet{transform:translateY(-78%)}
+.env .sheet::before{top:0}
+.env .sheet::before{content:"";position:absolute;left:14%;right:14%;top:12%;height:44%;background:repeating-linear-gradient(transparent 0 6px,rgba(80,60,130,.22) 6px 7px)}
+.env .seal{background:radial-gradient(circle at 32% 28%,#eadcff,var(--accent) 55%,#9a78d8);box-shadow:0 0 26px rgba(198,168,247,.55),inset 0 -3px 5px rgba(60,30,110,.35),0 3px 8px rgba(0,0,0,.5)}
+.card h3{font-size:30px}
+.btn{transition:background .3s,border-color .3s,box-shadow .4s,transform .3s var(--ease);letter-spacing:.02em}
+.btn:not([disabled]):hover{border-color:var(--accent);background:rgba(198,168,247,.1)}
+.btn.pri{background:linear-gradient(180deg,#d8c2fb,var(--accent));box-shadow:0 8px 24px -10px rgba(198,168,247,.7)}
+.btn.pri:hover{background:#fff;box-shadow:0 8px 30px -8px rgba(198,168,247,.8)}
+.btn:not([disabled]):active{transform:scale(.985)}
+.btn[disabled]{border-style:dashed}
+.letter{position:relative;background:var(--glass);box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 30px 60px -34px #000;animation:enter .8s var(--ease) both}
+.letter::before{content:"“";position:absolute;top:-6px;left:clamp(16px,3vw,32px);font:300 90px/1 var(--display);color:var(--accent);opacity:.35}
+.letter p{padding-top:18px;line-height:1.6}
+/* archive */
+.stats div{position:relative;background:var(--glass);box-shadow:inset 0 1px 0 rgba(255,255,255,.05);transition:border-color .4s,transform .5s var(--ease)}
+.stats div:hover{border-color:var(--line2);transform:translateY(-3px)}
+.stats b{margin-bottom:10px;background:linear-gradient(180deg,#fff,#cdb6f8);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.big{background:linear-gradient(180deg,#fff 25%,#c6a8f7);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;text-shadow:none;filter:drop-shadow(0 0 44px rgba(198,168,247,.3));padding-bottom:.05em}
+/* footer + lightbox */
+footer{margin-top:24px;border-image:linear-gradient(90deg,transparent,var(--line2),transparent) 1;line-height:1.7}
+footer a{text-decoration-color:var(--line2);text-underline-offset:3px;transition:color .3s}
+footer a:hover{color:var(--accent)}
+#lb{background:radial-gradient(70vmax 50vmax at 50% 30%,rgba(60,40,110,.35),rgba(8,9,17,.97));-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+#lb.on{animation:enter .4s var(--ease) both}
+#lbi{flex:1 1 0;justify-content:center;align-items:center}
+#lb .stage svg{width:auto;height:auto;box-shadow:0 30px 80px -20px #000,0 0 60px -20px var(--glow)}
+#lb .nav{transition:background .3s,border-color .3s;color:var(--text)}
+#lb .nav:hover{background:rgba(198,168,247,.12);border-color:var(--accent)}
+:focus-visible{outline-offset:3px;border-radius:12px}
+nav.tabs button:focus-visible{border-radius:99px}
+@media(max-width:560px){.badge{display:none}.sec>header{margin-bottom:40px}.eyebrow::before{width:18px}nav.tabs{max-width:calc(100vw - 120px)}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+/* --- content & interaction additions --- */
+.demo-note{background:var(--glass);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);display:flex;flex-wrap:wrap;align-items:center;gap:4px 12px;border:1px solid var(--line);border-radius:14px;padding:8px 8px 8px 14px;font-size:13px;color:var(--muted)}
+.demo-note strong{color:var(--text);font-weight:600}
+.demo-note a{color:var(--accent)}
+.demo-note button{margin-left:auto;background:none;border:0;color:var(--muted);padding:4px 10px;border-radius:99px;font-size:13px}
+.demo-note button:hover{color:var(--text)}
+#chips{margin-bottom:12px}
+.count{color:var(--muted);font-size:13px;margin:0 0 20px}
+.empty{background:var(--glass);border:1px dashed var(--line2);border-radius:22px;padding:36px 24px;text-align:center;color:var(--muted)}
+.empty h3{font-size:30px;color:var(--text);margin-bottom:8px}
+.empty p{margin:0 0 18px}
+.empty .btn,.composer .btn{width:auto;padding:12px 24px}
+.composer{margin-top:20px;max-width:640px}
+.composer h3{margin-bottom:6px}
+.composer label{display:block;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin:14px 0 6px}
+.composer textarea,.composer input{display:block;width:100%;font:inherit;color:var(--text);background:rgba(8,9,17,.55);border:1px solid var(--line2);border-radius:14px;padding:12px 14px;color-scheme:dark;transition:border-color .3s,box-shadow .3s}
+.composer textarea:focus,.composer input:focus{border-color:var(--accent);box-shadow:0 0 20px -8px var(--glow)}
+.composer textarea{min-height:110px;resize:vertical}
+.composer .msg{min-height:1.6em;margin:12px 0 0;font-size:14px;color:var(--muted)}
+.composer .msg.err{color:var(--danger)}
+.start{margin-block:8px 40px;border:1px solid var(--line2);border-radius:24px;padding:clamp(20px,4vw,36px);background:var(--glass);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 24px 50px -30px #000}
+.start h2{font-size:clamp(34px,5vw,56px);margin-bottom:8px}
+.start>p{color:var(--muted);margin:0 0 20px;max-width:60ch}
+.start ol{list-style:none;margin:0 0 24px;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;counter-reset:st}
+.start li{counter-increment:st;border-top:1px solid var(--line2);padding-top:12px;min-width:0;color:var(--muted);font-size:14px}
+.start li::before{content:counter(st);display:block;font:300 34px/1 var(--display);color:var(--accent);margin-bottom:6px}
+.start li b{display:block;color:var(--text);font-weight:600;margin-bottom:4px}
+.start code{display:block;margin-top:8px;padding:8px 10px;border-radius:10px;background:var(--ink2);font-size:12px;overflow-wrap:anywhere;color:var(--text)}
+.start .cta{margin-top:0;text-decoration:none}
+.demo-note{margin-bottom:8px}
+.composer .btn.pri{margin-top:12px}
+.cdn{font-variant-numeric:tabular-nums}
 </style>
 </head>
 <body>
-
+<a class="skip" href="#main">К содержимому</a>
 <div class="wrap">
 <header class="bar">
-  <div class="mono" aria-label="A×B">A×B</div>
-  <nav class="tabs" role="tablist" aria-label="Разделы">
-    <button role="tab" aria-selected="true" data-tab="home">Наша история</button>
-    <button role="tab" aria-selected="false" data-tab="mem">Воспоминания</button>
-    <button role="tab" aria-selected="false" data-tab="tl">Timeline</button>
-    <button role="tab" aria-selected="false" data-tab="let">Письма</button>
-    <button role="tab" aria-selected="false" data-tab="arc">Личный архив</button>
+  <div class="mono" aria-hidden="true">A×B</div>
+  <nav class="tabs" role="tablist" aria-label="Разделы" aria-orientation="horizontal">
+    <button role="tab" id="tab-home" aria-selected="true" aria-controls="home" tabindex="0" data-tab="home">Наша история</button>
+    <button role="tab" id="tab-mem" aria-selected="false" aria-controls="mem" tabindex="-1" data-tab="mem">Воспоминания</button>
+    <button role="tab" id="tab-tl" aria-selected="false" aria-controls="tl" tabindex="-1" data-tab="tl">Timeline</button>
+    <button role="tab" id="tab-let" aria-selected="false" aria-controls="let" tabindex="-1" data-tab="let">Письма</button>
+    <button role="tab" id="tab-arc" aria-selected="false" aria-controls="arc" tabindex="-1" data-tab="arc">Личный архив</button>
   </nav>
   <span class="badge">Demo</span>
 </header>
+<div class="demo-note" id="demoNote" role="note"><span><strong>Это демо — данные вымышлены.</strong> Ничего не сохраняется и не отправляется.</span> <a href="https://github.com/gregreshetnyak52-crypto/Our-Private-Universe" target="_blank" rel="noopener">Получить шаблон<span class="sr-only"> (откроется в новой вкладке)</span></a><button type="button" id="noteX" aria-label="Скрыть уведомление о демо">Скрыть</button></div>
 
-<main>
-<section id="home" data-panel>
+<main id="main" tabindex="-1">
+<section id="home" role="tabpanel" aria-labelledby="tab-home" data-panel>
   <div class="hero">
     <p class="eyebrow">Private archive</p>
-    <h1>Имя <em>×</em> Имя</h1>
+    <h1 tabindex="-1">Имя <em>×</em> Имя</h1>
     <p class="tag">Две судьбы. Тысячи моментов. Одна история</p>
     <p class="date">01.06.2020</p>
-    <div class="counter" role="timer" aria-label="Время вместе">
+    <p class="sr-only" id="c-sr"></p>
+    <div class="counter" aria-hidden="true">
       <div><b id="c-y">0</b><span>лет</span></div>
       <div><b id="c-m">0</b><span>месяцев</span></div>
       <div><b id="c-d">0</b><span>дней</span></div>
@@ -159,148 +325,253 @@ footer{border-top:1px solid var(--line);padding-block:32px;color:var(--muted);fo
   </div>
 </section>
 
-<section id="mem" class="sec" data-panel hidden>
-  <header><p class="eyebrow">Воспоминания</p><h2>Всё, что мы сохранили</h2><p>Фотографии и мгновения в том порядке, в каком они случались. Кадры ниже — цветные заглушки, в приложении здесь ваши фотографии.</p></header>
+<section id="mem" class="sec" role="tabpanel" aria-labelledby="tab-mem" data-panel hidden>
+  <header><p class="eyebrow">Воспоминания</p><h1 tabindex="-1">Всё, что мы сохранили</h1><p>Фотографии и мгновения в том порядке, в каком они случались. Кадры ниже — цветные заглушки, в приложении здесь ваши фотографии.</p></header>
   <div class="chips" role="group" aria-label="Фильтр по категории" id="chips"></div>
+  <div class="chips" role="group" aria-label="Фильтр по году" id="ychips"></div>
+  <p class="count" id="mcount" aria-hidden="true"></p>
+  <p class="sr-only" id="fstat" role="status"></p>
   <div class="grid" id="grid"></div>
+  <div class="empty" id="mempty" hidden><h2>Здесь пока пусто</h2><p>Под выбранные категорию и год воспоминаний нет. В приложении так выглядит раздел, пока вы ничего не добавили.</p><button type="button" class="btn" id="mreset">Сбросить фильтры</button></div>
 </section>
 
-<section id="tl" class="sec" data-panel hidden>
-  <header><p class="eyebrow">Timeline</p><h2>Наша хронология</h2><p>В приложении реальна только первая запись — остальные вы добавляете сами. Вторая и третья ниже подписаны как примеры.</p></header>
+<section id="tl" class="sec" role="tabpanel" aria-labelledby="tab-tl" tabindex="0" data-panel hidden>
+  <header><p class="eyebrow">Timeline</p><h1 tabindex="-1">Наша хронология</h1><p>В приложении реальна только первая запись — остальные вы добавляете сами. Все события ниже, кроме неё, вымышлены и показывают, как выглядит заполненная хронология.</p></header>
   <ol class="tl">
     <li><article class="ev"><time datetime="2020-01-01">1 января 2020 г.</time><h3>Начало нашей истории</h3><p>Первая запись хронологии, добавленная миграцией.</p></article></li>
-    <li><article class="ev"><time>Пример · дата</time><h3>Первая поездка вдвоём</h3><p>Так выглядит событие с местом и описанием. Обложку можно загрузить из фотографий.</p></article></li>
-    <li><article class="ev"><time>Пример · дата</time><h3>Переезд</h3><p>На телефоне линия идёт слева, на широком экране события чередуются по сторонам.</p></article></li>
+    <li><article class="ev"><time datetime="2020-06-14">14 июня 2020 г.</time><h3>Первая поездка вдвоём</h3><p>Электричка до конечной станции, термос с чаем и плейлист, который так и не доиграл до конца.</p></article></li>
+    <li><article class="ev"><time datetime="2020-10-03">3 октября 2020 г.</time><h3>Переезд</h3><p>Коробки, нехватка полок и первый ужин прямо на полу.</p></article></li>
+    <li><article class="ev"><time datetime="2020-12-31">31 декабря 2020 г.</time><h3>Первый общий Новый год</h3><p>Ёлка из подручных средств и загаданные желания на салфетках.</p></article></li>
+    <li><article class="ev"><time datetime="2021-05-22">22 мая 2021 г.</time><h3>В доме появился кот</h3><p>Он занял лучшее место на подоконнике и не собирается его уступать.</p></article></li>
+    <li><article class="ev"><time datetime="2022-08-09">9 августа 2022 г.</time><h3>Неделя у моря</h3><p>Ранние подъёмы ради тихого пляжа и долгие вечерние прогулки.</p></article></li>
+    <li><article class="ev"><time datetime="2023-06-01">1 июня 2023 г.</time><h3>Три года вместе</h3><p>Небольшой праздник дома: любимые блюда и старые фотографии.</p></article></li>
+    <li><article class="ev"><time datetime="2024-02-18">18 февраля 2024 г.</time><h3>Ремонт на кухне</h3><p>Выбирали цвет стен дольше, чем делали сам ремонт.</p></article></li>
   </ol>
 </section>
 
-<section id="let" class="sec" data-panel hidden>
-  <header><p class="eyebrow">Письма</p><h2>Слова, которые ждут</h2><p>Запечатанное письмо нельзя открыть до назначенной даты: текст не уходит в браузер, дату проверяет база данных. Здесь это показано на примерах.</p></header>
+<section id="let" class="sec" role="tabpanel" aria-labelledby="tab-let" data-panel hidden>
+  <header><p class="eyebrow">Письма</p><h1 tabindex="-1">Слова, которые ждут</h1><p>Запечатанное письмо нельзя открыть до назначенной даты: текст не уходит в браузер, дату проверяет база данных. Здесь это показано на примерах.</p></header>
   <div class="letters">
     <article class="card">
-      <div class="env" id="env1"><div class="body"></div><div class="sheet"></div>
+      <div class="env" id="env1" aria-hidden="true"><div class="body"></div><div class="sheet"></div>
         <svg class="front" viewBox="0 0 300 200" preserveAspectRatio="none"><path d="M0 200L150 90L300 200Z" fill="#111321" stroke="rgba(198,168,247,.25)"/><path d="M0 0L150 110L0 200Z" fill="#111321" stroke="rgba(198,168,247,.2)"/><path d="M300 0L150 110L300 200Z" fill="#111321" stroke="rgba(198,168,247,.2)"/></svg>
         <div class="flap"><svg viewBox="0 0 300 100" preserveAspectRatio="none"><path d="M0 0L150 100L300 0Z" fill="#111321" stroke="rgba(198,168,247,.35)"/></svg></div>
         <div class="seal">A×B</div></div>
       <p class="from">От: Имя Б · пример</p><h3>Для тебя</h3><p class="m">Доступно сейчас</p>
-      <button class="btn pri" id="openBtn">Открыть письмо</button>
+      <button class="btn pri" id="openBtn" aria-expanded="false" aria-controls="letterText">Открыть письмо</button>
     </article>
     <article class="card">
-      <div class="env"><div class="body"></div><div class="sheet"></div>
+      <div class="env" aria-hidden="true"><div class="body"></div><div class="sheet"></div>
         <svg class="front" viewBox="0 0 300 200" preserveAspectRatio="none"><path d="M0 200L150 90L300 200Z" fill="#111321" stroke="rgba(198,168,247,.25)"/><path d="M0 0L150 110L0 200Z" fill="#111321" stroke="rgba(198,168,247,.2)"/><path d="M300 0L150 110L300 200Z" fill="#111321" stroke="rgba(198,168,247,.2)"/></svg>
         <div class="flap"><svg viewBox="0 0 300 100" preserveAspectRatio="none"><path d="M0 0L150 100L300 0Z" fill="#111321" stroke="rgba(198,168,247,.35)"/></svg></div>
         <div class="seal">A×B</div></div>
-      <p class="from">От: Имя А · пример</p><h3>Запечатано</h3><p class="m" id="cd">Откроется через …</p>
+      <p class="from">От: Имя А · пример</p><h3>Запечатано</h3><p class="m cdn" id="cd">Откроется через …</p>
       <button class="btn" disabled>Запечатано</button>
     </article>
   </div>
-  <div class="letter" id="letterText" hidden><p>Текст письма показывается только после того, как сервер подтвердил, что дата наступила. Это пример оформления: крупный шрифт, много воздуха, ничего лишнего.</p></div>
+  <div class="letter" id="letterText" role="region" aria-label="Текст письма" hidden><p>Текст письма показывается только после того, как сервер подтвердил, что дата наступила. Это пример оформления: крупный шрифт, много воздуха, ничего лишнего.</p></div>
+  <form class="card composer" id="composer" novalidate aria-labelledby="cH">
+    <p class="from">Попробуйте сами · демо</p><h2 id="cH" style="font-size:30px;margin:6px 0 4px">Запечатать письмо</h2>
+    <p class="m">Напишите текст и выберите дату — появится новое запечатанное письмо с живым обратным отсчётом. Текст нигде не сохраняется.</p>
+    <label for="cText">Текст письма</label><textarea id="cText" maxlength="600" placeholder="Что вы хотите сказать в будущем?" aria-describedby="cMsg"></textarea>
+    <label for="cDate">Откроется</label><input type="date" id="cDate" aria-describedby="cMsg">
+    <p class="msg" id="cMsg" role="status"></p>
+    <button type="submit" class="btn pri">Запечатать</button>
+  </form>
 </section>
 
-<section id="arc" class="sec" data-panel hidden>
-  <header><p class="eyebrow">Личный архив</p><h2>Наша вселенная в цифрах</h2></header>
+<section id="arc" class="sec" role="tabpanel" aria-labelledby="tab-arc" tabindex="0" data-panel hidden>
+  <header><p class="eyebrow">Личный архив</p><h1 tabindex="-1">Наша вселенная в цифрах</h1></header>
   <p class="eyebrow" style="margin-bottom:6px">Дней вместе</p>
   <div class="big" id="days">0</div>
   <div class="stats">
-    <div><b>—</b><span>Воспоминаний</span></div>
-    <div><b>1</b><span>Событие в хронологии</span></div>
-    <div><b>—</b><span>Писем отправлено</span></div>
-    <div><b>—</b><span>Писем прочитано</span></div>
+    <div><b id="st-mem">0</b><span>Воспоминаний</span></div>
+    <div><b id="st-tl">0</b><span>Событий в хронологии</span></div>
+    <div><b id="st-sent">0</b><span>Писем отправлено</span></div>
+    <div><b id="st-read">0</b><span>Писем прочитано</span></div>
   </div>
 </section>
 </main>
+<aside class="start" id="start" aria-labelledby="startH">
+  <h2 id="startH">Хотите такой же для себя?</h2>
+  <p>Шаблон открытый (MIT): свой приватный архив для двоих, с вашими именами, фотографиями и письмами. Три шага, подробности в README.</p>
+  <ol>
+    <li><b>Скопируйте репозиторий</b>Клонируйте шаблон к себе.<code>git clone https://github.com/gregreshetnyak52-crypto/Our-Private-Universe.git</code></li>
+    <li><b>Настройте под себя</b>Подключите свою базу данных и укажите имена и дату начала истории.</li>
+    <li><b>Опубликуйте</b>Разверните на своём хостинге и пригласите второго человека.</li>
+  </ol>
+  <a class="cta" href="https://github.com/gregreshetnyak52-crypto/Our-Private-Universe" target="_blank" rel="noopener">Открыть на GitHub</a>
+</aside>
 <footer>Статичная демонстрация внешнего вида шаблона — данные вымышлены. Вход, база данных и загрузка файлов работают только в самом приложении. <a href="https://github.com/gregreshetnyak52-crypto/Our-Private-Universe">Исходный код на GitHub</a> · MIT</footer>
 </div>
 
-<div id="lb" role="dialog" aria-modal="true" aria-label="Просмотр фотографии">
-  <div class="top"><span id="lbn"></span><button class="x" id="lbx" aria-label="Закрыть">✕</button></div>
+<div id="lb" role="dialog" aria-modal="true" aria-label="Просмотр фотографии" aria-describedby="lbn">
+  <div class="top"><span id="lbn" aria-live="polite"></span><button class="x" id="lbx" aria-label="Закрыть">✕</button></div>
   <div class="stage"><button class="nav" id="lbp" aria-label="Предыдущее">‹</button><div id="lbi" style="min-width:0;max-height:100%;display:flex"></div><button class="nav" id="lbnx" aria-label="Следующее">›</button></div>
   <div class="info"><small id="lbd" style="letter-spacing:.25em;text-transform:uppercase;color:var(--accent);font-size:12px"></small><h3 id="lbt"></h3></div>
 </div>
 
 <script>
 (function(){
-  var TZ="UTC", START={y:2020,m:6,d:1};
+  var TZ="UTC", START={y:2020,m:6,d:1}, cds=[];
   function wall(t){
     var p=new Intl.DateTimeFormat("en-GB",{timeZone:TZ,hourCycle:"h23",year:"numeric",month:"numeric",day:"numeric",hour:"numeric",minute:"numeric",second:"numeric"}).formatToParts(t),o={};
     p.forEach(function(x){o[x.type]=+x.value});return o;
   }
   function dim(y,m){return new Date(Date.UTC(y,m,0)).getUTCDate()}
+  function z2(v){return String(v).padStart(2,"0")}
+  function cdTick(){
+    cds.forEach(function(c){
+      var ms=c.t-Date.now();
+      if(ms<=0){c.el.textContent="Срок наступил — в приложении письмо откроется само";return}
+      var s=Math.floor(ms/1000);
+      c.el.textContent="Откроется через "+Math.floor(s/86400)+" д. "+z2(Math.floor(s%86400/3600))+" ч. "+z2(Math.floor(s%3600/60))+" мин. "+z2(s%60)+" с";
+    });
+  }
+  cds.push({el:document.getElementById("cd"),t:Date.now()+(11*86400+4*3600+25*60)*1000}); // пример: 11 д. 4 ч. от открытия страницы
   function tick(){
     var n=wall(new Date()),y=n.year-START.y,m=n.month-START.m,d=n.day-START.d;
     var secs=n.hour*3600+n.minute*60+n.second;
     if(d<0){m--;d+=dim(n.month===1?n.year-1:n.year,n.month===1?12:n.month-1)}
     if(m<0){y--;m+=12}
     var total=Math.round((Date.UTC(n.year,n.month-1,n.day)-Date.UTC(START.y,START.m-1,START.d))/864e5);
-    function s(id,v){var e=document.getElementById(id);if(e)e.textContent=v}
+    function s(id,v){var e=document.getElementById(id);if(e&&e.textContent!==String(v))e.textContent=v}
+    function pl(n,a){var k=n%100,j=n%10;return n+" "+(k>10&&k<15?a[2]:j===1?a[0]:j>1&&j<5?a[1]:a[2])}
     function z(v){return String(v).padStart(2,"0")}
     s("c-y",y);s("c-m",m);s("c-d",d);s("c-h",z(n.hour));s("c-i",z(n.minute));s("c-s",z(n.second));
     s("days",total.toLocaleString("ru-RU"));
-    var tgt=Date.now()+ (11*86400+4*3600)*1000; // пример: фиксированный остаток от открытия страницы
-    s("cd","Откроется через 11 д. 4 ч.");
+    s("c-sr","Вместе: "+pl(y,["год","года","лет"])+", "+pl(m,["месяц","месяца","месяцев"])+", "+pl(d,["день","дня","дней"]));
+    cdTick();
   }
   tick();setInterval(tick,1000);
 
-  // вкладки
+  // вкладки + deep-link через location.hash (#memories, #timeline, #letters, #archive, #home)
   var tabs=[].slice.call(document.querySelectorAll("[data-tab]")),panels=[].slice.call(document.querySelectorAll("[data-panel]"));
-  function show(id){
-    tabs.forEach(function(t){t.setAttribute("aria-selected",t.dataset.tab===id)});
+  var NAME={home:"home",mem:"memories",tl:"timeline",let:"letters",arc:"archive"},ID={},pend=null;
+  Object.keys(NAME).forEach(function(k){ID[NAME[k]]=k;ID[k]=k});
+  function hashId(){var h=location.hash.slice(1);try{h=decodeURIComponent(h)}catch(x){}return ID[h.toLowerCase()]||null}
+  function show(id,focusTab,focusHead){
+    if(lb.classList.contains("on"))close();
+    tabs.forEach(function(t){var on=t.dataset.tab===id;t.setAttribute("aria-selected",on);t.tabIndex=on?0:-1;if(on&&focusTab)t.focus()});
     panels.forEach(function(p){p.hidden=p.id!==id});
-    window.scrollTo({top:0});
+    if(id==="arc")stats();
+    window.scrollTo({top:0,behavior:"instant"});
+    if(focusHead){var h=document.querySelector("#"+id+" h1");if(h)h.focus({preventScroll:true})}
   }
-  tabs.forEach(function(t){t.addEventListener("click",function(){show(t.dataset.tab)})});
-  document.querySelector("[data-go]").addEventListener("click",function(e){show(e.currentTarget.dataset.go)});
+  function go(id,o){o=o||{};if(location.hash==="#"+NAME[id]){show(id,o.tab,o.head)}else{pend=o;location.hash=NAME[id]}}
+  window.addEventListener("hashchange",function(){
+    var id=hashId(),o=pend;pend=null;
+    if(!id){if(location.hash===""||location.hash==="#")id="home";else return}
+    show(id,o?o.tab:false,o?o.head:true); // переход назад/вперёд или по ссылке: фокус на заголовок раздела
+  });
+  tabs.forEach(function(t,i){
+    t.addEventListener("click",function(){go(t.dataset.tab)});
+    t.addEventListener("keydown",function(e){
+      var n=e.key==="ArrowRight"?i+1:e.key==="ArrowLeft"?i-1:e.key==="Home"?0:e.key==="End"?tabs.length-1:null;
+      if(n===null)return;e.preventDefault();n=(n+tabs.length)%tabs.length;tabs[n].focus();go(tabs[n].dataset.tab,{tab:true});
+    });
+  });
+  document.querySelector("[data-go]").addEventListener("click",function(e){go(e.currentTarget.dataset.go,{head:true})});
+  document.getElementById("noteX").addEventListener("click",function(){document.getElementById("demoNote").hidden=true;document.getElementById("main").focus({preventScroll:true})});
 
   // воспоминания (демо-кадры)
+  var PAL=[["#3b2a6b","#C6A8F7"],["#1b2a4a","#7da0e8"],["#4a1f4a","#f0a5d0"],["#17323a","#8fd8d0"],["#2e2548","#b9a4f0"],["#40283a","#e8b4a0"]],HS=[300,220,260,340,230,290];
   var items=[
-    {t:"Пример кадра",d:"Дата",c:"Поездки",a:"#3b2a6b",b:"#C6A8F7",h:300},
-    {t:"Пример кадра",d:"Дата",c:"Дом",a:"#1b2a4a",b:"#7da0e8",h:220},
-    {t:"Пример кадра",d:"Дата",c:"Праздники",a:"#4a1f4a",b:"#f0a5d0",h:260},
-    {t:"Пример кадра",d:"Дата",c:"Поездки",a:"#17323a",b:"#8fd8d0",h:340},
-    {t:"Пример кадра",d:"Дата",c:"Дом",a:"#2e2548",b:"#b9a4f0",h:230},
-    {t:"Пример кадра",d:"Дата",c:"Праздники",a:"#40283a",b:"#e8b4a0",h:290}
-  ];
-  function art(it,i){
-    var id="g"+i;
-    return '<svg viewBox="0 0 400 '+it.h+'" role="img" aria-label="Цветная заглушка"><defs><linearGradient id="'+id+'" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="'+it.a+'"/><stop offset="1" stop-color="'+it.b+'" stop-opacity=".55"/></linearGradient></defs><rect width="400" height="'+it.h+'" fill="url(#'+id+')"/><circle cx="'+(90+i*47%240)+'" cy="'+(it.h*0.4)+'" r="'+(40+i*9)+'" fill="#F6F2FF" fill-opacity=".14"/><path d="M0 '+it.h+' L0 '+(it.h*0.72)+' Q120 '+(it.h*0.55)+' 220 '+(it.h*0.75)+' T400 '+(it.h*0.65)+' L400 '+it.h+'Z" fill="#080911" fill-opacity=".45"/></svg>';
+    ["Конечная станция","Июнь 2020",2020,"Поездки"],["Первый вечер на новом месте","Октябрь 2020",2020,"Дом"],
+    ["Ёлка из подручных средств","Декабрь 2020",2020,"Праздники"],["Дождь и один зонт","Апрель 2021",2021,"Прогулки"],
+    ["Знакомство с котом","Май 2021",2021,"Дом"],["Воскресные блины","Сентябрь 2021",2021,"Еда"],
+    ["Два года вместе","Июнь 2022",2022,"Праздники"],["Утро у моря","Август 2022",2022,"Поездки"],
+    ["Первый снег в парке","Ноябрь 2022",2022,"Прогулки"],["Ужин по новому рецепту","Март 2023",2023,"Еда"],
+    ["Кухня после ремонта","Февраль 2024",2024,"Дом"],["Маршрут без плана","Июль 2025",2025,"Поездки"]
+  ].map(function(r,n){return {t:r[0],d:r[1],y:r[2],c:r[3],a:PAL[n%6][0],b:PAL[n%6][1],h:HS[n%6],n:n}});
+  function art(it){
+    var i=it.n,id="g"+i;
+    return '<svg viewBox="0 0 400 '+it.h+'" role="img" aria-label="Цветная заглушка"><defs><linearGradient id="'+id+'" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="'+it.a+'"/><stop offset="1" stop-color="'+it.b+'" stop-opacity=".55"/></linearGradient></defs><rect width="400" height="'+it.h+'" fill="url(#'+id+')"/><circle cx="'+(90+i*47%240)+'" cy="'+(it.h*0.4)+'" r="'+(40+i*9%40)+'" fill="#F6F2FF" fill-opacity=".14"/><path d="M0 '+it.h+' L0 '+(it.h*0.72)+' Q120 '+(it.h*0.55)+' 220 '+(it.h*0.75)+' T400 '+(it.h*0.65)+' L400 '+it.h+'Z" fill="#080911" fill-opacity=".45"/><path d="M0 '+it.h+' L0 '+(it.h*0.86)+' Q150 '+(it.h*0.7)+' 270 '+(it.h*0.88)+' T400 '+(it.h*0.8)+' L400 '+it.h+'Z" fill="#080911" fill-opacity=".6"/><circle cx="'+(90+i*47%240)+'" cy="'+(it.h*0.4)+'" r="'+(64+i*9%40)+'" fill="none" stroke="#F6F2FF" stroke-opacity=".12"/><g fill="#F6F2FF"><circle cx="'+(300-i*13)+'" cy="'+(24+i*7)+'" r="1.4" fill-opacity=".8"/><circle cx="'+(60+i*21)+'" cy="'+(it.h*0.2)+'" r="1" fill-opacity=".6"/><circle cx="'+(350-i*9)+'" cy="'+(it.h*0.35)+'" r="1.2" fill-opacity=".5"/></g></svg>';
   }
   var cats=["Все"].concat(items.map(function(i){return i.c}).filter(function(v,i,a){return a.indexOf(v)===i}));
-  var cur="Все",view=[],idx=0;
-  var chips=document.getElementById("chips"),grid=document.getElementById("grid");
-  function render(){
-    chips.innerHTML=cats.map(function(c){return '<button class="chip" aria-pressed="'+(c===cur)+'" data-c="'+c+'">'+c+'</button>'}).join("");
-    view=items.filter(function(i){return cur==="Все"||i.c===cur});
-    grid.innerHTML=view.map(function(it,i){return '<button class="mem" data-i="'+i+'" aria-label="Открыть: '+it.t+'">'+art(it,i)+'<span class="cap"><small>'+it.d+' · '+it.c+'</small><strong>'+it.t+'</strong></span></button>'}).join("");
+  var years=items.map(function(i){return i.y}).filter(function(v,i,a){return a.indexOf(v)===i}).sort();
+  var cur="Все",curY="all",view=[],idx=0;
+  var chips=document.getElementById("chips"),ychips=document.getElementById("ychips"),grid=document.getElementById("grid");
+  chips.innerHTML=cats.map(function(c){return '<button class="chip" data-c="'+c+'">'+c+'</button>'}).join("");
+  ychips.innerHTML=['<button class="chip" data-y="all">Все годы</button>'].concat(years.map(function(y){return '<button class="chip" data-y="'+y+'">'+y+'</button>'})).join("");
+  function render(){ // кнопки-фильтры не пересоздаются, поэтому фокус остаётся на них
+    [].forEach.call(chips.children,function(b){b.setAttribute("aria-pressed",b.dataset.c===cur)});
+    [].forEach.call(ychips.children,function(b){b.setAttribute("aria-pressed",b.dataset.y===String(curY))});
+    view=items.filter(function(i){return (cur==="Все"||i.c===cur)&&(curY==="all"||i.y===+curY)});
+    grid.innerHTML=view.map(function(it,i){return '<button class="mem" data-i="'+i+'" aria-label="Открыть: '+it.t+' ('+(i+1)+' из '+view.length+')">'+art(it)+'<span class="cap"><small>'+it.d+' · '+it.c+'</small><strong>'+it.t+'</strong></span></button>'}).join("");
+    var t="Показано: "+view.length+" из "+items.length;
+    document.getElementById("mempty").hidden=view.length>0;
+    document.getElementById("mcount").textContent=t;
+    document.getElementById("fstat").textContent=view.length?t:"Ничего не найдено";
   }
   chips.addEventListener("click",function(e){var b=e.target.closest("[data-c]");if(b){cur=b.dataset.c;render()}});
+  ychips.addEventListener("click",function(e){var b=e.target.closest("[data-y]");if(b){curY=b.dataset.y;render()}});
+  document.getElementById("mreset").addEventListener("click",function(){cur="Все";curY="all";render();chips.firstElementChild.focus()});
   grid.addEventListener("click",function(e){var b=e.target.closest("[data-i]");if(b)open(+b.dataset.i)});
   render();
 
   var lb=document.getElementById("lb");
+  var opener=null;
   function open(i){
-    idx=i;var it=view[i];
-    document.getElementById("lbi").innerHTML=art(it,i);
+    idx=i;var it=view[i];var first=!lb.classList.contains("on");
+    if(first){opener=document.activeElement;document.querySelector(".wrap").inert=true;document.documentElement.style.overflow="hidden"}
+    document.getElementById("lbi").innerHTML=art(it);
     document.getElementById("lbn").textContent=(i+1)+" / "+view.length;
     document.getElementById("lbd").textContent=it.d+" · "+it.c;
     document.getElementById("lbt").textContent=it.t;
-    lb.classList.add("on");document.getElementById("lbx").focus();
+    document.getElementById("lbp").setAttribute("aria-disabled",i===0);
+    document.getElementById("lbnx").setAttribute("aria-disabled",i===view.length-1);
+    lb.classList.add("on");if(first)document.getElementById("lbx").focus();
   }
-  function close(){lb.classList.remove("on")}
+  function close(){
+    lb.classList.remove("on");document.querySelector(".wrap").inert=false;document.documentElement.style.overflow="";
+    if(opener&&document.contains(opener))opener.focus();opener=null;
+  }
   function step(d){var n=idx+d;if(n>=0&&n<view.length)open(n)}
   document.getElementById("lbx").onclick=close;
   document.getElementById("lbp").onclick=function(){step(-1)};
   document.getElementById("lbnx").onclick=function(){step(1)};
   document.addEventListener("keydown",function(e){
     if(!lb.classList.contains("on"))return;
-    if(e.key==="Escape")close();else if(e.key==="ArrowLeft")step(-1);else if(e.key==="ArrowRight")step(1);
+    if(e.key==="Tab"){
+      var f=[].slice.call(lb.querySelectorAll("button")),a=document.activeElement,k=f.indexOf(a);
+      if(k<0||(e.shiftKey&&k===0)||(!e.shiftKey&&k===f.length-1)){e.preventDefault();f[e.shiftKey?f.length-1:0].focus()}
+    }else if(e.key==="Escape")close();else if(e.key==="ArrowLeft")step(-1);else if(e.key==="ArrowRight")step(1);
   });
 
   // письмо
   var openBtn=document.getElementById("openBtn"),env=document.getElementById("env1"),lt=document.getElementById("letterText");
   openBtn.addEventListener("click",function(){
     var o=env.classList.toggle("open");
-    lt.hidden=!o;openBtn.textContent=o?"Закрыть конверт":"Открыть письмо";
+    lt.hidden=!o;openBtn.setAttribute("aria-expanded",o);openBtn.textContent=o?"Закрыть конверт":"Открыть письмо";
+    if(o&&!readOnce){readOnce=true;read=1;stats()}
   });
+  var readOnce=false,read=0,sent=2,composed=0;
+  function stats(){
+    function s(id,v){document.getElementById(id).textContent=v}
+    s("st-mem",items.length);s("st-tl",document.querySelectorAll(".tl .ev").length);s("st-sent",sent);s("st-read",read);
+  }
+  // мок-композер: письмо живёт только в DOM, текст не сохраняется
+  var form=document.getElementById("composer"),cT=document.getElementById("cText"),cD=document.getElementById("cDate"),cM=document.getElementById("cMsg");
+  var lettersEl=document.querySelector(".letters"),tpl=lettersEl.children[1];
+  function ymd(d){return d.getFullYear()+"-"+z2(d.getMonth()+1)+"-"+z2(d.getDate())}
+  var t0=new Date();cD.min=ymd(new Date(t0.getFullYear(),t0.getMonth(),t0.getDate()+1));cD.value=ymd(new Date(t0.getFullYear(),t0.getMonth(),t0.getDate()+30));
+  function say(t,err){cM.textContent=t;cM.className="msg"+(err?" err":"")}
+  form.addEventListener("submit",function(e){
+    e.preventDefault();
+    var p=cD.value.split("-"),t=p.length===3?new Date(+p[0],+p[1]-1,+p[2]):null;
+    if(!cT.value.trim()){say("Напишите хотя бы несколько слов.",1);cT.focus();return}
+    if(!t||isNaN(t)||t<=Date.now()){say("Выберите дату в будущем.",1);cD.focus();return}
+    if(composed>=6){say("В демо можно запечатать до шести писем.",1);return}
+    var c=tpl.cloneNode(true);c.querySelector("#cd").removeAttribute("id");
+    c.querySelector(".from").textContent="От: вы · откроется "+t.toLocaleDateString("ru-RU");
+    cds.push({el:c.querySelector(".m"),t:t.getTime()});lettersEl.appendChild(c);
+    composed++;sent++;stats();cdTick();cT.value="";
+    say("Письмо запечатано и добавлено выше. Текст не сохранён: это демо.");
+    c.scrollIntoView({block:"nearest"});
+  });
+  stats();
+  if(hashId())show(hashId());
 })();
 </script>
 
