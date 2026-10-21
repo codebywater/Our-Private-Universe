@@ -311,7 +311,7 @@ nav.tabs button:focus-visible{border-radius:99px}
     <p class="eyebrow">Private archive</p>
     <h1 tabindex="-1">Имя <em>×</em> Имя</h1>
     <p class="tag">Две судьбы. Тысячи моментов. Одна история</p>
-    <p class="date">01.06.2020</p>
+    <p class="date">01.01.2020</p>
     <p class="sr-only" id="c-sr"></p>
     <div class="counter" aria-hidden="true">
       <div><b id="c-y">0</b><span>лет</span></div>
@@ -326,7 +326,7 @@ nav.tabs button:focus-visible{border-radius:99px}
 </section>
 
 <section id="mem" class="sec" role="tabpanel" aria-labelledby="tab-mem" data-panel hidden>
-  <header><p class="eyebrow">Воспоминания</p><h1 tabindex="-1">Всё, что мы сохранили</h1><p>Фотографии и мгновения в том порядке, в каком они случались. Кадры ниже — цветные заглушки, в приложении здесь ваши фотографии.</p></header>
+  <header><p class="eyebrow">Воспоминания</p><h1 tabindex="-1">Всё, что мы сохранили</h1><p>Фотографии и мгновения, отсортированные по дате. Кадры ниже — цветные заглушки, в приложении здесь ваши фотографии.</p></header>
   <div class="chips" role="group" aria-label="Фильтр по категории" id="chips"></div>
   <div class="chips" role="group" aria-label="Фильтр по году" id="ychips"></div>
   <p class="count" id="mcount" aria-hidden="true"></p>
@@ -338,7 +338,7 @@ nav.tabs button:focus-visible{border-radius:99px}
 <section id="tl" class="sec" role="tabpanel" aria-labelledby="tab-tl" tabindex="0" data-panel hidden>
   <header><p class="eyebrow">Timeline</p><h1 tabindex="-1">Наша хронология</h1><p>В приложении реальна только первая запись — остальные вы добавляете сами. Все события ниже, кроме неё, вымышлены и показывают, как выглядит заполненная хронология.</p></header>
   <ol class="tl">
-    <li><article class="ev"><time datetime="2020-01-01">1 января 2020 г.</time><h3>Начало нашей истории</h3><p>Первая запись хронологии, добавленная миграцией.</p></article></li>
+    <li><article class="ev"><time datetime="2020-01-01">1 января 2020 г.</time><h3>Начало нашей истории</h3><p>Дата, с которой начинается этот архив.</p></article></li>
     <li><article class="ev"><time datetime="2020-06-14">14 июня 2020 г.</time><h3>Первая поездка вдвоём</h3><p>Электричка до конечной станции, термос с чаем и плейлист, который так и не доиграл до конца.</p></article></li>
     <li><article class="ev"><time datetime="2020-10-03">3 октября 2020 г.</time><h3>Переезд</h3><p>Коробки, нехватка полок и первый ужин прямо на полу.</p></article></li>
     <li><article class="ev"><time datetime="2020-12-31">31 декабря 2020 г.</time><h3>Первый общий Новый год</h3><p>Ёлка из подручных средств и загаданные желания на салфетках.</p></article></li>
@@ -398,7 +398,7 @@ nav.tabs button:focus-visible{border-radius:99px}
   <ol>
     <li><b>Скопируйте репозиторий</b>Клонируйте шаблон к себе.<code>git clone https://github.com/codebywater/Our-Private-Universe.git</code></li>
     <li><b>Настройте под себя</b>Подключите свою базу данных и укажите имена и дату начала истории.</li>
-    <li><b>Опубликуйте</b>Разверните на своём хостинге и пригласите второго человека.</li>
+    <li><b>Опубликуйте</b>Разверните на своём хостинге и создайте в Supabase два аккаунта — себе и второму человеку.</li>
   </ol>
   <a class="cta" href="https://github.com/codebywater/Our-Private-Universe" target="_blank" rel="noopener">Открыть на GitHub</a>
 </aside>
@@ -423,7 +423,7 @@ nav.tabs button:focus-visible{border-radius:99px}
   function cdTick(){
     cds.forEach(function(c){
       var ms=c.t-Date.now();
-      if(ms<=0){c.el.textContent="Срок наступил — в приложении письмо откроется само";return}
+      if(ms<=0){c.el.textContent="Срок наступил — в приложении письмо станет доступно для открытия";return}
       var s=Math.floor(ms/1000);
       c.el.textContent="Откроется через "+Math.floor(s/86400)+" д. "+z2(Math.floor(s%86400/3600))+" ч. "+z2(Math.floor(s%3600/60))+" мин. "+z2(s%60)+" с";
     });
@@ -439,6 +439,7 @@ nav.tabs button:focus-visible{border-radius:99px}
     function pl(n,a){var k=n%100,j=n%10;return n+" "+(k>10&&k<15?a[2]:j===1?a[0]:j>1&&j<5?a[1]:a[2])}
     function z(v){return String(v).padStart(2,"0")}
     s("c-y",y);s("c-m",m);s("c-d",d);s("c-h",z(n.hour));s("c-i",z(n.minute));s("c-s",z(n.second));
+    [["c-y",y,["год","года","лет"]],["c-m",m,["месяц","месяца","месяцев"]],["c-d",d,["день","дня","дней"]],["c-h",n.hour,["час","часа","часов"]],["c-i",n.minute,["минута","минуты","минут"]],["c-s",n.second,["секунда","секунды","секунд"]]].forEach(function(r){var e=document.getElementById(r[0]).nextElementSibling,w=pl(r[1],r[2]).replace(/^\d+ /,"");if(e.textContent!==w)e.textContent=w});
     s("days",total.toLocaleString("ru-RU"));
     s("c-sr","Вместе: "+pl(y,["год","года","лет"])+", "+pl(m,["месяц","месяца","месяцев"])+", "+pl(d,["день","дня","дней"]));
     cdTick();
