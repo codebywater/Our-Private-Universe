@@ -4,6 +4,8 @@ A private, cinematic memory archive for exactly two people: photo memories, a ti
 
 > The interface language is **Russian**. All texts live in the components and `lib/site-config.ts`; the README below is in English first, with the original Russian setup guide kept underneath.
 
+[![tests](https://github.com/codebywater/Our-Private-Universe/actions/workflows/ci.yml/badge.svg)](https://github.com/codebywater/Our-Private-Universe/actions/workflows/ci.yml)
+
 **Stack:** Next.js (App Router) · React · TypeScript strict · Tailwind 4 · Framer Motion · Supabase (Auth, Postgres, Storage) · Zod.
 
 ## Features
@@ -14,12 +16,17 @@ A private, cinematic memory archive for exactly two people: photo memories, a ti
 - Two-user allowlist (a DB trigger caps it at two), no public sign-up, RLS on every table, no `service_role` in the app.
 
 ## Quick start
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fcodebywater%2FOur-Private-Universe&project-name=our-private-universe&env=NEXT_PUBLIC_SUPABASE_URL,NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY,NEXT_PUBLIC_SITE_URL,NEXT_PUBLIC_TIMEZONE&envDescription=Supabase+URL+and+publishable+key+%28never+service_role%29,+your+site+URL+and+IANA+timezone&envLink=https%3A%2F%2Fgithub.com%2Fcodebywater%2FOur-Private-Universe%2Fblob%2Fmain%2F.env.example)
+
+The button clones the repo to your GitHub and deploys it to Vercel. Do steps 1–3 and 5 below first: the database and the two allowed users live in your Supabase project.
+
 1. Create a Supabase project. Run `supabase/migrations/*.sql` in order (SQL Editor or `supabase db push`).
 2. Auth → Providers → Email: enable, and **disable** "Allow new users to sign up". Create two users with a password (Auto Confirm).
 3. Put their emails and display names into `supabase/add_allowed_users.sql` and run it once in the SQL Editor.
 4. `cp .env.example .env.local`, fill in the Supabase URL and publishable key (never the `service_role` key).
 5. Personalize `lib/site-config.ts`: names, monogram, the two dates, optional photos. Keep the seed date in `supabase/migrations/20261012000003_seed_timeline.sql` in sync with `meetingDate`.
-6. `npm install && npm run dev`, then deploy to Vercel with the same env vars.
+6. `npm install && npm run dev`, then deploy to Vercel with the same env vars (or use the button above).
 
 ## Scripts
 `npm run dev|build|start`, `npm run lint`, `npm run typecheck`, `npm test` (unit), `npm run test:db` (RLS tests on PGlite with a Supabase emulation, not a live project).
@@ -35,6 +42,8 @@ MIT. See `LICENSE`.
 # Руководство на русском
 
 ## Что нужно настроить вручную
+
+Быстрый деплой: [![Развернуть на Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fcodebywater%2FOur-Private-Universe&project-name=our-private-universe&env=NEXT_PUBLIC_SUPABASE_URL,NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY,NEXT_PUBLIC_SITE_URL,NEXT_PUBLIC_TIMEZONE&envDescription=Supabase+URL+and+publishable+key+%28never+service_role%29,+your+site+URL+and+IANA+timezone&envLink=https%3A%2F%2Fgithub.com%2Fcodebywater%2FOur-Private-Universe%2Fblob%2Fmain%2F.env.example) Кнопка создаст копию репозитория и развернёт её на Vercel. Перед этим настройте Supabase (раздел 1 ниже): база и два разрешённых пользователя живут в вашем проекте Supabase.
 
 
 
